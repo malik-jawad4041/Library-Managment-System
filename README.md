@@ -17,8 +17,8 @@ This project allows managing books, members, and loans.
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/malik-jawad4041/Library-Managment-System.git
+   cd Library-Managment-System
 
 2. **Create virtual environment**
 python -m venv assign1
