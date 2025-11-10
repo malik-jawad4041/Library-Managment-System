@@ -35,11 +35,9 @@ class con:
             )
             print("Connection Established Successfully :)")
             return obj
-        except Exception as err :
+        except pg.Error as err :
             print("ERROR:",err)
 
-        finally:
-            pass
 
 
     @staticmethod

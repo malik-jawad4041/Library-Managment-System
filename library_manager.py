@@ -327,8 +327,15 @@ select
     (select member_id from cte where count = (select max(count) from cte) limit 1) as most_active_member;
 ''')
             
-            print(cur.fetchall())       # will add dictionary format later
-            
+            result = cur.fetchall()       # will add dictionary format later
+            dict = {
+                'Total books':result[0][0],
+                'total members':result[0][1],
+                'active loans':result[0][2],
+                'most active member"s id':result[0][3]
+            }
+            print(dict)
+
         except psycopg2.Error as err:
             print("ERROR!!:",err)
 

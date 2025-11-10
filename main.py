@@ -16,8 +16,12 @@ while True:
     print("CHECKING DATA:(ENTER)")
     print("41 FOR CHECKING TOP BORROWED BOOKS\n42 FOR GETTING BOROWING HISTORY OF A MEMBER\n43 FOR LISTING BOOKS NEVER BORROWED\n44 FOR CHECKING THE TOTALS OR EVERY TABLE")
     print("ENTER 0 TO EXIT CODE!!! :")
-    inp = int(input())
-
+    
+    inp = 1
+    try:
+        inp = int(input())
+    except Exception as err:
+        pass
 
     match inp:
         case 11:
