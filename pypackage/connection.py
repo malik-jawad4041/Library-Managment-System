@@ -1,19 +1,16 @@
 import psycopg2 as pg
 import dotenv as env
 import os
+import logging
 
-
-
-class EXE(Exception):
-    def __init__(self, msg):
-        super().__init__(msg)
-
-
+logging.basicConfig(filename="logger.txt",level=logging.INFO)
+logger = logging.getLogger(__name__)
 class con:
 
     variables = False
     @classmethod
     def connect(cls):
+        '''FOR DATA BASE CONNECTION'''
 
 
         if(cls.variables == False):
@@ -33,20 +30,22 @@ class con:
             password=cls.password,
             port=cls.port
             )
-            print("Connection Established Successfully :)")
+            logger.info("Connection Established Successfully :)")
             return obj
         except pg.Error as err :
+            logger.setLevel(logging.ERROR)
             print("ERROR:",err)
-
+            logger.setLevel(logging.ERROR)
 
 
     @staticmethod
     def disconnect(connection):
+        '''FOR DISCONNECTING FROM DATABASE'''
     
         if connection:
             connection.close()
         
         else:
-            print("There is no connection!")
+            logging.info("There is no connection!")
 
 

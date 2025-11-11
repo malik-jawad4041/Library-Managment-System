@@ -1,10 +1,10 @@
-from database import con
+from pypackage.connection import con
 import datetime as dt
 import psycopg2
 import logging
 
 # TODO: replace print with loggers --done
-# TODO: add try except to a decorator and reuse on every function there should be one or more general decorators that you should use. --done 
+# TODO: add try except to a decorator and reuse on every function there should be one or more general decorators that you should use. --done testing remains
 # TODO: use proper type hinting with all the function --done
 # TODO: use proper doc strings --done
 # TODO: add precommits for formatting --done

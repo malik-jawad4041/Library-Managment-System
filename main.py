@@ -1,21 +1,26 @@
-from library_manager import managment
+from pypackage.manager import managment
+import logging
+
+
+logging.basicConfig(filename="logger.txt",level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 mng = managment()
 
 while True:
-    print("----------------------------------------------------------------")
-    print("FOR BOOKS: (ENTER)")
-    print("11 TO ADD\n12 FOR GET BOOK BY ID\n13 FOR GETTING ALL BOOKS\n14 TO UPDATE BOOK COPIES\n15 FOR SEARCHING BOOK THORUGH KEYWORD")
-    print("----------------------------------------------------------------")
-    print("FOR MEMBERS: (ENTER)")
-    print("21 TO ADD\n22 TO GET MEMBER BY ID\n23 FOR GETTING ALL MEMBERS")
-    print("----------------------------------------------------------------")
-    print("FOR LOANS: (ENTER)")
-    print("31 TO ADD LOAN RECORD\n32 FOR UPDATING STATUS OF LOAN\n33 FOR LISTING ALL ACTIVE LOANS\n34 FOR LISTING ALL OVER DUE LOANS")
-    print("----------------------------------------------------------------")
-    print("CHECKING DATA:(ENTER)")
-    print("41 FOR CHECKING TOP BORROWED BOOKS\n42 FOR GETTING BOROWING HISTORY OF A MEMBER\n43 FOR LISTING BOOKS NEVER BORROWED\n44 FOR CHECKING THE TOTALS OR EVERY TABLE")
-    print("ENTER 0 TO EXIT CODE!!! :")
+    logger.info("----------------------------------------------------------------")
+    logger.info("FOR BOOKS: (ENTER)")
+    logger.info("11 TO ADD\n12 FOR GET BOOK BY ID\n13 FOR GETTING ALL BOOKS\n14 TO UPDATE BOOK COPIES\n15 FOR SEARCHING BOOK THORUGH KEYWORD")
+    logger.info("----------------------------------------------------------------")
+    logger.info("FOR MEMBERS: (ENTER)")
+    logger.info("21 TO ADD\n22 TO GET MEMBER BY ID\n23 FOR GETTING ALL MEMBERS")
+    logger.info("----------------------------------------------------------------")
+    logger.info("FOR LOANS: (ENTER)")
+    logger.info("31 TO ADD LOAN RECORD\n32 FOR UPDATING STATUS OF LOAN\n33 FOR LISTING ALL ACTIVE LOANS\n34 FOR LISTING ALL OVER DUE LOANS")
+    logger.info("----------------------------------------------------------------")
+    logger.info("CHECKING DATA:(ENTER)")
+    logger.info("41 FOR CHECKING TOP BORROWED BOOKS\n42 FOR GETTING BOROWING HISTORY OF A MEMBER\n43 FOR LISTING BOOKS NEVER BORROWED\n44 FOR CHECKING THE TOTALS OR EVERY TABLE")
+    logger.info("ENTER 0 TO EXIT CODE!!! :")
     
     inp = 1
     try:
@@ -58,14 +63,19 @@ while True:
                 if(len(phone) == 11):
                     mng.add_member(name, email, phone)
                 else:
-                    print("INVALID NUMBER")
+                    logger.setLevel(logging.ERROR)
+                    logger.error("INVALID NUMBER")
+                    logger.setLevel(logging.INFO)
             except Exception as err:
-                print("ERROR:",err)
+                logger.setLevel(logging.ERROR)
+                logger.error("ERROR:",err)
+                logger.setLevel(logging.INFO)
+
             finally:
                 pass
 
         case 22:
-            member_id = input("enter member id :")
+            member_id  = input("enter member id :")
             mng.get_member_by_id(member_id) # - Retrieve member details
 
         case 23:
@@ -92,9 +102,8 @@ while True:
             mng.get_overdue_loans()
 
 
-
         case 41:
-            limit = input("enter the maximum limit of records to reterive:")
+            limit : int | str = input("enter the maximum limit of records to reterive:")
             if not limit:
                 limit = 5
             else:
@@ -109,14 +118,14 @@ while True:
             mng.get_books_never_borrowed()# - List books that have never been borrowed
 
         case 44:
-            mng.get_statistics()# - Return a dictionary with:
-
+            data = mng.get_statistics()# - Return a dictionary with:
+            logger.info(data)
 
         case 0:
-            print("EXITING CODE BLOCK!!!")
+            logger.info("EXITING CODE BLOCK!!!")
             break
         case _:
-            print("ENTER VALID OPTION!!!")
+            logger.info("ENTER VALID OPTION!!!")
 
 
 
