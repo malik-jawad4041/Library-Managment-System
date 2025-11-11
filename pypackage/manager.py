@@ -4,11 +4,11 @@ import psycopg2
 import logging
 
 # TODO: replace print with loggers --done
-# TODO: add try except to a decorator and reuse on every function there should be one or more general decorators that you should use. --done testing remains
+# TODO: add try except to a decorator and reuse on every function there should be one or more general decorators that you should use. --done 
 # TODO: use proper type hinting with all the function --done
 # TODO: use proper doc strings --done
 # TODO: add precommits for formatting --done
-# TODO: rename file to connection and manager , place them in a folder and create the package
+# TODO: rename file to connection and manager , place them in a folder and create the package --done
 
 
 
