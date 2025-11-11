@@ -12,17 +12,12 @@ import logging
 
 
 
-
-# We can also use it directly without creating an object ,but when created with object we know which file's log is this
-
-
-#Default logging level is warning, so to change it we have to 
-
 logging.basicConfig(filename='logger.txt',level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
 def decor(func): 
+    '''Here's is the decorator added'''
         
     def wrapper(self, *args, **kwargs):
         try:
