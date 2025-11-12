@@ -3,12 +3,13 @@ import datetime as dt
 import psycopg2
 import logging
 
-# TODO: replace print with loggers --done
-# TODO: add try except to a decorator and reuse on every function there should be one or more general decorators that you should use. --done 
-# TODO: use proper type hinting with all the function --done
-# TODO: use proper doc strings --done
-# TODO: add precommits for formatting --done
-# TODO: rename file to connection and manager , place them in a folder and create the package --done
+
+
+# TODO: create pull requests --done
+# TODO: rename the decorator function and use doc strings properly --done
+# TODO: configure the pre commit file properly and push it on github --done
+# TODO: Name the commits properly --donoe
+# TODO: use the multi line string --done
 
 
 
@@ -16,8 +17,8 @@ logging.basicConfig(filename='logger.txt',level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def decor(func): 
-    '''Here's is the decorator added'''
+def Decorator(func): 
+    '''This decorator will perform the try except block for all functions instead of individual try except block in each function '''
         
     def wrapper(self, *args, **kwargs):
         try:
@@ -39,6 +40,9 @@ def decor(func):
     return wrapper
 
 
+
+
+
 class managment:
 
 
@@ -47,17 +51,17 @@ class managment:
             self.con = con.connect()
     
 
-    @decor
+    @Decorator
     def add_book(self,title : str, author : str, published_year : int, copies : int)-> None:
-        '''   For adding the data inside the book  '''
+        '''   This function adds data inside the book table in schema library '''
         self.curr.execute("insert into library.books (title,author,published_year,available_copies) values(%s,%s,%s,%s)",(title,author,published_year,copies))
         self.curr.commit()
         logger.info("BOOK ADDED SUCCESSFULLY :)")
 
 
-    @decor
+    @Decorator
     def get_book_by_id(self,book_id : int) -> None: 
-        '''   Retrieve book details '''
+        '''  This function Retrieve book details using the book id'''
         self.curr.execute("select * from library.books where book_id = %s",
                         (book_id,))
         data = self.curr.fetchall()
@@ -65,9 +69,9 @@ class managment:
 
 
 
-    @decor
+    @Decorator
     def get_all_books(self):
-        ''' LIST ALL BOOKS'''
+        ''' This function reterive all records from the books table'''
         self.curr.execute("select book_id,title,author,published_year,available_copies from library.books")
         data = self.curr.fetchall()
         logger.info(data)
@@ -76,9 +80,9 @@ class managment:
     
 
 
-    @decor
+    @Decorator
     def update_book_copies(self,book_id : int, copies : int)-> None: 
-        '''Update available copies'''
+        ''' this function updates the available copies of a book using its book id '''
         self.curr.execute("update library.books set available_copies = %s where book_id = %s",(copies,book_id))
         self.curr.commit()            
         logger.info("UPDATE SUCCESSFULL !!")
@@ -87,9 +91,9 @@ class managment:
 
 
 
-    @decor
+    @Decorator
     def search_books(self,keyword : str) -> None: 
-        '''Search books by title or author'''
+        '''this function searches books by it title or author '''
         keyword = f"%{keyword}%"
         self.curr.execute("select * from library.books where title ilike %s or author ilike %s",(keyword,keyword) )
         data = self.curr.fetchall()
@@ -97,9 +101,9 @@ class managment:
 
 
 
-    @decor
+    @Decorator
     def add_member(self,name : str, email : str, phone : int) -> None: 
-        ''' Register a new member'''
+        '''this function register a new member in members table in schema library'''
         self.curr.execute("insert into library.members (name,email,phone) values(%s,%s,%s)",(name,email,phone) )
         self.curr.commit()
         logger.info("DATA INSERTED SUCCESSFULLY!!")
@@ -107,18 +111,18 @@ class managment:
 
 
 
-    @decor
+    @Decorator
     def get_member_by_id(self,member_id : int) -> None: 
-        '''Retrieve member details'''
+        ''' this function retrieves member details using the member id '''
         self.curr.execute("select * from library.members where member_id = %s",(member_id,) )
         logger.info(self.curr.fetchall())
 
 
 
 
-    @decor
+    @Decorator
     def get_all_members(self) -> None: 
-        '''List all members'''
+        '''this function list all members in the members table '''
         self.curr.execute("select * from library.members" )
         logger.info(self.curr.fetchall())
 
@@ -128,18 +132,18 @@ class managment:
 
 
 
-    @decor
+    @Decorator
     def borrow_book(self,book_id : int, member_id : int, days : int = 14)-> None: 
-        '''Create a loan record'''
+        ''' this function creates a loan record for individual member in loans table in schema library '''
         date = dt.date.today() + dt.timedelta(days=days)
         self.curr.execute("insert into library.loans (book_id,member_id,due_date,status) values (%s,%s,%s,%s)",(book_id,member_id,date,"active") )
         self.curr.commit()            
         logger.info("DATA INSERTED IN LOANS TABLE!!!")
 
 
-    @decor
+    @Decorator
     def return_book(self,loan_id : int) ->None: 
-        '''Mark book as returned'''
+        ''' this function marks book as returned using the loan id '''
         self.curr.execute("update library.loans set status = 'returned' where loan_id = %s",(loan_id,) )
         logger.info("UPDATED LOANS TABLE!!!")
         self.curr.commit()
@@ -147,25 +151,25 @@ class managment:
 
 
 
-    @decor
+    @Decorator
     def get_active_loans(self) ->None: 
-        ''' List all active loans'''
+        '''  this function lists all active loans '''
         self.curr.execute("select * from library.loans where status = 'active' " )
         logger.info(self.curr.fetchall())
 
 
-    @decor
+    @Decorator
     def get_overdue_loans(self) -> None: 
-        '''List overdue loans'''
+        '''this function list overdue loans '''
         date = dt.date.today()
         self.curr.execute("select * from library.loans where due_date < %s ",(date,) )
         logger.info(self.curr.fetchall())
 
 
 
-    @decor
+    @Decorator
     def get_most_borrowed_books(self,limit : int = 5 ) -> None:
-        '''Return top borrowed books'''
+        '''this function shows top borrowed books from loans '''
         self.curr.execute(''' 
             select lb.book_id,title,author,published_year from
             library.books as lb inner join (select book_id from
@@ -177,26 +181,28 @@ class managment:
             
 
 
-    @decor
+    @Decorator
     def get_member_history(self,member_id : int) -> None:
-        '''Get complete borrowing history for a member'''
+        '''this function shows complete borrowing history for a member using the member id '''
         self.curr.execute("select * from library.loans where member_id = %s",(member_id,) )
         logger.info(self.curr.fetchall())
             
      
 
-    @decor
+    @Decorator
     def get_books_never_borrowed(self) -> None:
-        '''List books that have never been borrowed'''
+        '''tbis function list books that have never been borrowed '''
         self.curr.execute('''select tb1.book_id,title,author,published_year from 
                     library.books as tb1 where tb1.book_id not in 
                     (select book_id from library.loans group by book_id)''')
         
         logger.info(self.curr.fetchall())
+
+
        
-    @decor
+    @Decorator
     def get_statistics(self) -> dict[str , int | str | None]:
-        '''Return a dictionary with:'''
+        ''' Return a dictionary with: Total books, Total members ,Active loans ,Overdue loans Most active member '''
         self.curr.execute('''with cte as (
     select count(*) as count, member_id
     from library.loans
@@ -230,16 +236,6 @@ select
         con.disconnect(self.con)
 
       
-
-
-'''
-Total books
-Total members
-Active loans
-Overdue loans
-Most active member
-'''
-
 
 
 
