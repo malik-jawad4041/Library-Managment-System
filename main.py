@@ -8,19 +8,19 @@ logger = logging.getLogger(__name__)
 mng = managment()
 
 while True:
-    logger.info("----------------------------------------------------------------")
-    logger.info("FOR BOOKS: (ENTER)")
-    logger.info("11 TO ADD\n12 FOR GET BOOK BY ID\n13 FOR GETTING ALL BOOKS\n14 TO UPDATE BOOK COPIES\n15 FOR SEARCHING BOOK THORUGH KEYWORD")
-    logger.info("----------------------------------------------------------------")
-    logger.info("FOR MEMBERS: (ENTER)")
-    logger.info("21 TO ADD\n22 TO GET MEMBER BY ID\n23 FOR GETTING ALL MEMBERS")
-    logger.info("----------------------------------------------------------------")
-    logger.info("FOR LOANS: (ENTER)")
-    logger.info("31 TO ADD LOAN RECORD\n32 FOR UPDATING STATUS OF LOAN\n33 FOR LISTING ALL ACTIVE LOANS\n34 FOR LISTING ALL OVER DUE LOANS")
-    logger.info("----------------------------------------------------------------")
-    logger.info("CHECKING DATA:(ENTER)")
-    logger.info("41 FOR CHECKING TOP BORROWED BOOKS\n42 FOR GETTING BOROWING HISTORY OF A MEMBER\n43 FOR LISTING BOOKS NEVER BORROWED\n44 FOR CHECKING THE TOTALS OR EVERY TABLE")
-    logger.info("ENTER 0 TO EXIT CODE!!! :")
+    logger.info('''----------------------------------------------------------------\n
+FOR BOOKS: (ENTER)\n
+11 TO ADD\n12 FOR GET BOOK BY ID\n13 FOR GETTING ALL BOOKS\n14 TO UPDATE BOOK COPIES\n15 FOR SEARCHING BOOK THORUGH KEYWORD\n
+----------------------------------------------------------------\n
+FOR MEMBERS: (ENTER)\n
+21 TO ADD\n22 TO GET MEMBER BY ID\n23 FOR GETTING ALL MEMBERS\n
+----------------------------------------------------------------\n
+FOR LOANS: (ENTER)\n
+31 TO ADD LOAN RECORD\n32 FOR UPDATING STATUS OF LOAN\n33 FOR LISTING ALL ACTIVE LOANS\n34 FOR LISTING ALL OVER DUE LOANS\n
+----------------------------------------------------------------\n
+CHECKING DATA:(ENTER)\n
+41 FOR CHECKING TOP BORROWED BOOKS\n42 FOR GETTING BOROWING HISTORY OF A MEMBER\n43 FOR LISTING BOOKS NEVER BORROWED\n44 FOR CHECKING THE TOTALS OR EVERY TABLE\n
+ENTER 0 TO EXIT CODE!!! :''')
     
     inp = 1
     try:
