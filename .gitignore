@@ -2,4 +2,4 @@ assign1/
 .env
 __pycache__/
 *.pyc
-.pre-commit-config.yaml
+
